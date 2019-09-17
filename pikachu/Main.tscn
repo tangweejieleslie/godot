@@ -1,14 +1,13 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
-[ext_resource path="res://pokeball.png" type="Texture" id=2]
-[ext_resource path="res://Position2D.gd" type="Script" id=3]
-[ext_resource path="res://KinematicBody2D.gd" type="Script" id=4]
-[ext_resource path="res://pika_01.png" type="Texture" id=5]
-[ext_resource path="res://pika_02.png" type="Texture" id=6]
-[ext_resource path="res://pika_stand.png" type="Texture" id=7]
-[ext_resource path="res://pika_stand_01.png" type="Texture" id=8]
-[ext_resource path="res://Area2D_projectile.tscn" type="PackedScene" id=9]
+[ext_resource path="res://KinematicBody2D.gd" type="Script" id=2]
+[ext_resource path="res://pika_01.png" type="Texture" id=3]
+[ext_resource path="res://pika_02.png" type="Texture" id=4]
+[ext_resource path="res://pika_stand.png" type="Texture" id=5]
+[ext_resource path="res://pika_stand_01.png" type="Texture" id=6]
+[ext_resource path="res://Area2D_projectile.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Pokeball.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 10, 331.809 )
@@ -22,17 +21,14 @@ extents = Vector2( 10, 328.235 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 576.886, 10 )
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 13.3849
-
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "right",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -78,48 +74,29 @@ align = 1
 valign = 1
 
 [node name="Walls" type="Area2D" parent="."]
-editor/display_folded = true
 collision_layer = 8
 collision_mask = 15
 
 [node name="Left Wall" type="CollisionShape2D" parent="Walls"]
-position = Vector2( -10.5538, 321.492 )
+position = Vector2( -17.3556, 294.285 )
 shape = SubResource( 4 )
 
 [node name="Top Wall" type="CollisionShape2D" parent="Walls"]
+position = Vector2( 19.0452, -17.6848 )
 shape = SubResource( 5 )
 
 [node name="Right Wall" type="CollisionShape2D" parent="Walls"]
-position = Vector2( 1035.17, 289.486 )
+position = Vector2( 1046.06, 279.964 )
 shape = SubResource( 6 )
 
 [node name="Bottom Wall" type="CollisionShape2D" parent="Walls"]
-position = Vector2( 485.077, 608.681 )
+position = Vector2( 496.656, 613.944 )
 shape = SubResource( 7 )
 
-[node name="Item" type="Area2D" parent="."]
-position = Vector2( 853.219, 341.397 )
-collision_layer = 4
-collision_mask = 3
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Sprite" type="Sprite" parent="Item"]
-scale = Vector2( 0.05, 0.05 )
-texture = ExtResource( 2 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Item"]
-shape = SubResource( 1 )
-
-[node name="Position2D" type="Position2D" parent="Item"]
-script = ExtResource( 3 )
-
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-editor/display_folded = true
 position = Vector2( 493.319, 315.039 )
 collision_mask = 14
-script = ExtResource( 4 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -133,13 +110,16 @@ position = Vector2( 6.82745, 3.9014 )
 rotation = 7.23264
 shape = SubResource( 3 )
 
-[node name="Area2D_projectile" parent="." instance=ExtResource( 9 )]
+[node name="Area2D_projectile" parent="." instance=ExtResource( 7 )]
 visible = false
 position = Vector2( 178.1, 342.78 )
 collision_layer = 2
 collision_mask = 12
+
+[node name="Pokeball" parent="." instance=ExtResource( 8 )]
+position = Vector2( 882.219, 225.638 )
 [connection signal="area_entered" from="Walls" to="." method="_on_Walls_area_entered"]
-[connection signal="area_entered" from="Item" to="." method="_on_Item_area_entered"]
-[connection signal="body_entered" from="Item" to="." method="_on_Item_body_entered"]
 [connection signal="attack" from="KinematicBody2D" to="." method="_on_KinematicBody2D_attack"]
 [connection signal="area_entered" from="Area2D_projectile" to="." method="_on_Area2D_projectile_area_entered"]
+[connection signal="area_entered" from="Pokeball" to="." method="_on_Pokeball_area_entered"]
+[connection signal="body_entered" from="Pokeball" to="." method="_on_Pokeball_body_entered"]

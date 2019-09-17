@@ -1,27 +1,28 @@
 extends Node2D
 
 var score = 0
-const MIN = 80
+const MIN = 150
 const MAX_WIDTH = 600-MIN
 const MAX_HEGHT = 1024-MIN
 const MAXSPEED = 750
 
+
+func _on_Pokeball_area_entered(area):
+	handle_pokeball_contact(area)
+	area.free() # Free electro-ball
+
+func _on_Pokeball_body_entered(body):
+	handle_pokeball_contact(body)
 
 func handle_pokeball_contact(contactWith):
 	print(contactWith," hit pokeball")
 	score +=1
 	update_score(score)
 	increase_speed(score)
-	print($KinematicBody2D.WALK_SPEED)
-	$Item.position = Vector2(random_number_generator(MIN,MAX_HEGHT),random_number_generator(MIN,MAX_WIDTH))
+	#print($KinematicBody2D.WALK_SPEED)
+	print($Pokeball)
+	$Pokeball.position = Vector2(random_number_generator(MIN,MAX_HEGHT),random_number_generator(MIN,MAX_WIDTH))
 	#print($Item.position)
-
-func _on_Item_area_entered(area):
-	handle_pokeball_contact(area)
-	area.free()
-
-func _on_Item_body_entered(body):
-	handle_pokeball_contact(body)
 	
 func random_number_generator(MIN, MAX):
 	randomize()
@@ -47,4 +48,8 @@ func _on_KinematicBody2D_attack():
 	
 func _on_Walls_area_entered(area):
 	print(area, "has entered")
-	area.free() # This prevents clogging up with infinite instance of electro ball
+	print($Pokeball)
+	if area == $Pokeball:
+		print("Deleting ", area)
+		area.free() # This prevents clogging up with infinite instance of electro ball
+
