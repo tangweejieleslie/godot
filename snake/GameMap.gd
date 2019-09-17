@@ -60,7 +60,7 @@ func _on_Item_BodyEntered():
 		if obstacleCount < 1:
 			add_obstacle()
 	
-	for i in obstacleArray:
+	for i in obstacleArray: #This might be the cause of bug
 		i.position = Vector2(get_random_number(900,50), get_random_number(500,50))
 	
 	print(fruitCount)
@@ -69,5 +69,5 @@ func _on_Item_BodyEntered():
 	pass # Replace with function body.
 
 
-func _on_Obstacle_BodyEntered():
-	obstacleCount -= 1
+func _on_Obstacle_BodyEntered(): #This might be the cause of bug
+	obstacleCount -= 1 
