@@ -1,0 +1,118 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://KinematicBody2D.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://CollisionShape2D.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 20, 20 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 630, 30 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 30, 350 )
+
+[sub_resource type="RectangleShape2D" id=4]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+position = Vector2( 220, 430 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="KinematicBody2D"]
+position = Vector2( 4.29153e-006, -4.29153e-006 )
+scale = Vector2( 0.625, 0.625 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+shape = SubResource( 1 )
+
+[node name="Boxed Room" type="StaticBody2D" parent="."]
+editor/display_folded = true
+position = Vector2( 410, 630 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Boxed Room"]
+visible = false
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 110, 0 )
+scale = Vector2( 15.625, 1 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boxed Room"]
+position = Vector2( 110, 0 )
+shape = SubResource( 2 )
+
+[node name="Wall4" type="StaticBody2D" parent="Boxed Room"]
+editor/display_folded = true
+position = Vector2( 10, -660 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Boxed Room/Wall4"]
+visible = false
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 110, 0 )
+scale = Vector2( 15.625, 1 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boxed Room/Wall4"]
+position = Vector2( 110, 0 )
+shape = SubResource( 2 )
+
+[node name="Wall3" type="StaticBody2D" parent="Boxed Room"]
+editor/display_folded = true
+position = Vector2( 320, -420 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Boxed Room/Wall3"]
+visible = false
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 320, 109 )
+scale = Vector2( 0.9375, 3.40625 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boxed Room/Wall3"]
+position = Vector2( 320, 110 )
+shape = SubResource( 3 )
+
+[node name="Wall5" type="StaticBody2D" parent="Boxed Room"]
+editor/display_folded = true
+position = Vector2( -760, -430 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Boxed Room/Wall5"]
+visible = false
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 320, 109 )
+scale = Vector2( 0.9375, 3.40625 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boxed Room/Wall5"]
+position = Vector2( 320, 110 )
+shape = SubResource( 3 )
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2( 260, 180 )
+shape = SubResource( 4 )
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="RigidBody2D"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 260, 180 )
+scale = Vector2( 0.3125, 0.3125 )
+texture = ExtResource( 2 )
