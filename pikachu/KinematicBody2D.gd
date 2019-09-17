@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+signal attack
 # const GRAVITY = 200.0
 var WALK_SPEED = 450
 
@@ -40,3 +41,7 @@ func _physics_process(delta):
     # The second parameter of "move_and_slide" is the normal pointing up.
     # In the case of a 2D platformer, in Godot, upward is negative y, which translates to -1 as a normal.
 	move_and_slide(velocity, Vector2(0, 0))
+
+	if Input.is_action_just_pressed("ui_accept"):
+		emit_signal("attack")
+		print("attack")

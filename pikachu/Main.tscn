@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://pokeball.png" type="Texture" id=2]
@@ -8,11 +8,12 @@
 [ext_resource path="res://pika_02.png" type="Texture" id=6]
 [ext_resource path="res://pika_stand.png" type="Texture" id=7]
 [ext_resource path="res://pika_stand_01.png" type="Texture" id=8]
+[ext_resource path="res://Projectile.tscn" type="PackedScene" id=9]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=1]
 radius = 13.3849
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
 "loop": true,
@@ -33,7 +34,7 @@ height = 25.9503
 script = ExtResource( 1 )
 
 [node name="Item" type="Area2D" parent="."]
-position = Vector2( 328.46, 50.4891 )
+position = Vector2( 744.662, 318.135 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -43,20 +44,20 @@ scale = Vector2( 0.05, 0.05 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Item"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Position2D" type="Position2D" parent="Item"]
 script = ExtResource( 3 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-position = Vector2( 126.226, 75.6302 )
+position = Vector2( 493.319, 315.039 )
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicBody2D"]
-frames = SubResource( 1 )
+frames = SubResource( 2 )
 animation = "right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
@@ -95,4 +96,7 @@ margin_bottom = -2.04337
 text = "0"
 align = 1
 valign = 1
+
+[node name="Projectile" parent="." instance=ExtResource( 9 )]
 [connection signal="body_entered" from="Item" to="." method="_on_Item_body_entered"]
+[connection signal="attack" from="KinematicBody2D" to="." method="_on_KinematicBody2D_attack"]
