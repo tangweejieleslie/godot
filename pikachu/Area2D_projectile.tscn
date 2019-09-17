@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Projectile.gd" type="Script" id=1]
+[ext_resource path="res://Area2D_projectile.gd" type="Script" id=1]
 [ext_resource path="res://electro_ball.png" type="Texture" id=2]
 [ext_resource path="res://electro_ball_2.png" type="Texture" id=3]
 [ext_resource path="res://electro_ball_3.png" type="Texture" id=4]
@@ -14,16 +14,21 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 3.68782
+radius = 2.01415
 
-[node name="Projectile" type="KinematicBody2D"]
-position = Vector2( -1.53677, 0.307358 )
-scale = Vector2( 5, 5 )
+[node name="Area2D_projectile" type="Area2D"]
+position = Vector2( 17.746, 14.3816 )
+collision_mask = 0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-scale = Vector2( 0.02, 0.02 )
+scale = Vector2( 0.1, 0.1 )
 frames = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
+
+[node name="Position2D" type="Position2D" parent="."]
