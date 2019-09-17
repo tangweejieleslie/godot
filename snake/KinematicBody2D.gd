@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var speed = 250
+var speed = 500
 var velocity = Vector2(0,0)
 
 func _physics_process(delta):
@@ -20,4 +20,13 @@ func _physics_process(delta):
 		velocity = Vector2(0,0)
 	
 	move_and_slide(velocity)
+	
+	if velocity.x !=0:
+		$AnimatedSprite.play("right")
+		$AnimatedSprite.flip_h = velocity.x < 0
+	elif velocity.y != 0:
+	    $AnimatedSprite.animation = "right"
+	else:
+		$AnimatedSprite.play("default")
+	
 	
