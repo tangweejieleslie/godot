@@ -10,6 +10,18 @@
 [ext_resource path="res://pika_stand_01.png" type="Texture" id=8]
 [ext_resource path="res://Area2D_projectile.tscn" type="PackedScene" id=9]
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 10, 331.809 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 1039.99, 10 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 10, 328.235 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 576.886, 10 )
+
 [sub_resource type="CircleShape2D" id=1]
 radius = 13.3849
 
@@ -30,52 +42,8 @@ animations = [ {
 radius = 7.86755
 height = 25.9503
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 10, 331.809 )
-
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 1039.99, 10 )
-
-[sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 10, 328.235 )
-
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 576.886, 10 )
-
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
-
-[node name="Item" type="Area2D" parent="."]
-position = Vector2( 970.823, 345.274 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Sprite" type="Sprite" parent="Item"]
-scale = Vector2( 0.05, 0.05 )
-texture = ExtResource( 2 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Item"]
-shape = SubResource( 1 )
-
-[node name="Position2D" type="Position2D" parent="Item"]
-script = ExtResource( 3 )
-
-[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-position = Vector2( 493.319, 315.039 )
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicBody2D"]
-frames = SubResource( 2 )
-animation = "right"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-position = Vector2( 6.82745, 3.9014 )
-rotation = 7.23264
-shape = SubResource( 3 )
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
@@ -109,11 +77,10 @@ text = "0"
 align = 1
 valign = 1
 
-[node name="Area2D_projectile" parent="." instance=ExtResource( 9 )]
-position = Vector2( 178.1, 342.78 )
-
 [node name="Walls" type="Area2D" parent="."]
-collision_layer = 2
+editor/display_folded = true
+collision_layer = 8
+collision_mask = 15
 
 [node name="Left Wall" type="CollisionShape2D" parent="Walls"]
 position = Vector2( -10.5538, 321.492 )
@@ -129,8 +96,50 @@ shape = SubResource( 6 )
 [node name="Bottom Wall" type="CollisionShape2D" parent="Walls"]
 position = Vector2( 485.077, 608.681 )
 shape = SubResource( 7 )
+
+[node name="Item" type="Area2D" parent="."]
+position = Vector2( 853.219, 341.397 )
+collision_layer = 4
+collision_mask = 3
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Item"]
+scale = Vector2( 0.05, 0.05 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Item"]
+shape = SubResource( 1 )
+
+[node name="Position2D" type="Position2D" parent="Item"]
+script = ExtResource( 3 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+editor/display_folded = true
+position = Vector2( 493.319, 315.039 )
+collision_mask = 14
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicBody2D"]
+frames = SubResource( 2 )
+animation = "right"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+position = Vector2( 6.82745, 3.9014 )
+rotation = 7.23264
+shape = SubResource( 3 )
+
+[node name="Area2D_projectile" parent="." instance=ExtResource( 9 )]
+visible = false
+position = Vector2( 178.1, 342.78 )
+collision_layer = 2
+collision_mask = 12
+[connection signal="area_entered" from="Walls" to="." method="_on_Walls_area_entered"]
 [connection signal="area_entered" from="Item" to="." method="_on_Item_area_entered"]
 [connection signal="body_entered" from="Item" to="." method="_on_Item_body_entered"]
 [connection signal="attack" from="KinematicBody2D" to="." method="_on_KinematicBody2D_attack"]
 [connection signal="area_entered" from="Area2D_projectile" to="." method="_on_Area2D_projectile_area_entered"]
-[connection signal="area_entered" from="Walls" to="." method="_on_Walls_area_entered"]
