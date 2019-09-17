@@ -49,4 +49,8 @@ func _on_KinematicBody2D_attack():
 	
 	pass # Replace with function body.
 
-
+func _on_Walls_area_entered(area):
+	print(area)
+	print(area, "has entered")
+	area.free() # This prevents clogging up with infinite instance of electro ball
+	pass # Replace with function body.

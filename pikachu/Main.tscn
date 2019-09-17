@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://pokeball.png" type="Texture" id=2]
@@ -29,6 +29,18 @@ animations = [ {
 [sub_resource type="CapsuleShape2D" id=3]
 radius = 7.86755
 height = 25.9503
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 10, 331.809 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 1039.99, 10 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 10, 328.235 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 576.886, 10 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -99,7 +111,26 @@ valign = 1
 
 [node name="Area2D_projectile" parent="." instance=ExtResource( 9 )]
 position = Vector2( 178.1, 342.78 )
+
+[node name="Walls" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="Left Wall" type="CollisionShape2D" parent="Walls"]
+position = Vector2( -10.5538, 321.492 )
+shape = SubResource( 4 )
+
+[node name="Top Wall" type="CollisionShape2D" parent="Walls"]
+shape = SubResource( 5 )
+
+[node name="Right Wall" type="CollisionShape2D" parent="Walls"]
+position = Vector2( 1035.17, 289.486 )
+shape = SubResource( 6 )
+
+[node name="Bottom Wall" type="CollisionShape2D" parent="Walls"]
+position = Vector2( 485.077, 608.681 )
+shape = SubResource( 7 )
 [connection signal="area_entered" from="Item" to="." method="_on_Item_area_entered"]
 [connection signal="body_entered" from="Item" to="." method="_on_Item_body_entered"]
 [connection signal="attack" from="KinematicBody2D" to="." method="_on_KinematicBody2D_attack"]
 [connection signal="area_entered" from="Area2D_projectile" to="." method="_on_Area2D_projectile_area_entered"]
+[connection signal="area_entered" from="Walls" to="." method="_on_Walls_area_entered"]
